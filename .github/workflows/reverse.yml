@@ -1,11 +1,11 @@
 #cicd..
 name: reverse-ci
-#on:
-#- workflow_dispatch
 on:
-  push:
-     branches:
-        - master
+- workflow_dispatch
+# on:
+#   push:
+#      branches:
+#         - master
 env:
   GKE_PROJECT: reverse-ip-app
   #GKE_EMAIL: ${{ secrets.GKE_EMAIL }}
