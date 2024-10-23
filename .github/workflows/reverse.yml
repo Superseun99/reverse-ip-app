@@ -42,6 +42,8 @@ jobs:
         with:
     # Command line arguments for docker-compose
           cli-args: up -d
+          push: true
+          tags: gcr.io/reverse/reverse:latest
           
       
       - name: Log in to Google Container Registry
@@ -51,13 +53,13 @@ jobs:
           username: _json_key
           password: ${{ secrets.GCP_CREDENTIALS }}
 
-      - name: Build & push Docker image
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          file: ./docker-compose.yml # Adjusted path to Dockerfile
-          push: true
-          tags: gcr.io/reverse/reverse:latest
+      # - name: Build & push Docker image
+      #   uses: docker/build-push-action@v4
+      #   with:
+      #     context: .
+      #     file: ./docker-compose.yml # Adjusted path to Dockerfile
+      #     push: true
+      #     tags: gcr.io/reverse/reverse:latest
       - name: Authenticate with Google Cloud
         uses: google-github-actions/auth@v1
         with:
