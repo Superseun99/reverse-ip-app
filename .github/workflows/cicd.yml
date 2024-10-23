@@ -23,16 +23,21 @@ jobs:
           username: _json_key
           password: ${{ secrets.GCP_CREDENTIALS }}      
       
-      # - name: Log in to GCP Container Registry
-      #   run: echo "${{ secrets.GCP_CREDENTIALS }}" | docker login -u _json_key --password-stdin https://gcr.io
+      - name: Docker Compose Command
+        uses: blag/action-docker-compose@v0.0.1
+        with:
+    # Command line arguments for docker-compose
+          cli-args: up -d
+          push: true
+          tags: gcr.io/reverse/reverse:latest
 
-      - name: Build and push Docker images
-        run: |
-          docker-compose up -d
-          docker tag reverse/reverse:latest gcr.io/reverse/reverse:latest
-          docker tag mysql:5.7 gcr.io/reverse/mysql:5.7
-          docker push gcr.io/reverse/reverse:latest
-          docker push gcr.io/reverse/mysql:5.7
+      # - name: Build and push Docker images
+      #   run: |
+      #     docker-compose up -d
+      #     docker tag reverse/reverse:latest gcr.io/reverse/reverse:latest
+      #     docker tag mysql:5.7 gcr.io/reverse/mysql:5.7
+      #     docker push gcr.io/reverse/reverse:latest
+      #     docker push gcr.io/reverse/mysql:5.7
 
   deploy:
     runs-on: ubuntu-latest
