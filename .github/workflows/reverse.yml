@@ -73,7 +73,7 @@ jobs:
           # SA json key used to login to GKE.
           serviceaccount-key: ${{ secrets.GCP_CREDENTIALS }}
           # SA name used to login to GKE.
-          serviceaccount-name: devops
+          #serviceaccount-name: devops
           # GCP region to use (default: asia-southeast1)
           gcp-region: us-central1 # default is asia-southeast1
           # GCP project to use
