@@ -62,6 +62,6 @@ jobs:
         run: |
           kubectl config set-cluster gke_cluster --server=https://34.56.181.209
           kubectl config set-credentials gke_user --token=${{ secrets.GCP_CREDENTIALS }}
-          kubectl config set-context gke_context --cluster=reverse --user=devops
+          kubectl config set-context gke_context --cluster=gke_cluster --user=gke_user
           kubectl config use-context gke_context
           kubectl apply -f deployment.yaml
