@@ -1,10 +1,11 @@
 #cicd..
 name: reverse-ci
+#on:
+#- workflow_dispatch
 on:
-- workflow_dispatch
-# on:
-#   push:
-   
+  push:
+     branches:
+        - master
 
 jobs:
   deploy:
