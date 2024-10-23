@@ -28,7 +28,7 @@ jobs:
 
       - name: Build and push Docker images
         run: |
-          docker-compose build
+          docker-compose up -d
           docker tag reverse/reverse:latest gcr.io/reverse/reverse:latest
           docker tag mysql:5.7 gcr.io/reverse/mysql:5.7
           docker push gcr.io/reverse/reverse:latest
