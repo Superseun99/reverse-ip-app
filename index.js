@@ -31,6 +31,7 @@ db.query(`CREATE TABLE IF NOT EXISTS ip_addresses (
 app.get('/', (req, res) => {
     const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
     const reversedIp = ip.split('.').reverse().join('.');
+    console.log(reversedIp);
     
     // Insert reversed IP into MySQL
     db.query('INSERT INTO ip_addresses (ip_address) VALUES (?)', [reversedIp], (err, result) => {

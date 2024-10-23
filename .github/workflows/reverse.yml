@@ -1,0 +1,56 @@
+#cicd..
+name: ci
+on:
+- workflow_dispatch
+# on:
+#   push:
+   
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    needs: docker
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+        
+      - name: Authenticate with Google Cloud
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+
+      - name: Deploy using Google Cloud Deploy
+        run: |
+          gcloud deploy releases create release-$(date +%Y%m%d-%H%M%S) \
+          --project=reverse-ip-app \
+
+          --region=us-central1 \
+          --images=your-app=gcr.io/reverse-ip-app/reverse:v1 \
+          --description="Automated deployment from GitHub Actions"
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to Google Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: gcr.io
+          username: _json_key
+          password: ${{ secrets.GCP_CREDENTIALS }}
+
+      - name: Build & push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./section2/Dockerfile # Adjusted path to Dockerfile
+          push: true
+          tags: gcr.io/reverse-ip-app/reverse:latest
+      - name: Authenticate with Google Cloud
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
