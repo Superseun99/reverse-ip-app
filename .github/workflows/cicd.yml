@@ -61,7 +61,7 @@ jobs:
       - name: Deploy to GKE
         run: |
 
-          kubectl apply -f k8s/deployment.yaml
+          kubectl apply -f deployment.yaml
 #          kubectl config set-cluster gke_cluster --server=https://your-gke-cluster-endpoint
         # kubectl config set-credentials gke_user --token=${{ secrets.GCP_ACCESS_TOKEN }}
           # kubectl config set-context gke_context --cluster=gke_cluster --user=gke_user
