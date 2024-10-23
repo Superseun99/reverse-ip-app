@@ -56,13 +56,12 @@ jobs:
         uses: google-github-actions/setup-gcloud@v0
         with:
           service_account_key: ${{ secrets.GCP_CREDENTIALS }}
-          project_id: reverse
+          project_id: reverse-ip-app-439418
 
       - name: Deploy to GKE
         run: |
-
+          kubectl config set-cluster gke_cluster --server=https://34.56.181.209
+          kubectl config set-credentials gke_user --token=${{ secrets.GCP_CREDENTIALS }}
+          kubectl config set-context gke_context --cluster=reverse --user=devops
+          kubectl config use-context gke_context
           kubectl apply -f deployment.yaml
-#          kubectl config set-cluster gke_cluster --server=https://your-gke-cluster-endpoint
-        # kubectl config set-credentials gke_user --token=${{ secrets.GCP_ACCESS_TOKEN }}
-          # kubectl config set-context gke_context --cluster=gke_cluster --user=gke_user
-          # kubectl config use-context gke_context
