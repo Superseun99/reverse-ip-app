@@ -77,7 +77,7 @@ jobs:
           # GCP region to use (default: asia-southeast1)
           gcp-region: us-central1 # default is asia-southeast1
           # GCP project to use
-          gcp-project: reverse-ip-app
+          gcp-project: reverse-ip-app-439418
           # GKE cluster name.
           gke-cluster-name: reverse
           # Comma separates list of helm values files.
