@@ -71,7 +71,7 @@ jobs:
             KUBE_CONFIG_DATA: ${{ secrets.GCP_CREDENTIALS }}
         with:
           args: |
-            helm repo add bitnami https://charts.bitnami.com/bitnami
+            
             helm upgrade --install node-app-release ./node-app-chart
 
   #     - name: Google GKE Helm Deployment
