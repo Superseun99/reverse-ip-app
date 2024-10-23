@@ -65,33 +65,43 @@ jobs:
         with:
           credentials_json: ${{ secrets.GCP_CREDENTIALS }}
 
-      - name: Google GKE Helm Deployment
-  # You may pin to the exact commit or the version.
-  # uses: dgrezza/action-gcp-helm-deploy@0c3089cd9a2c4a940df8373991bb5024c8c80dc8
-        uses: dgrezza/action-gcp-helm-deploy@v1.0.3
+      - name: deploy node to cluster
+        uses: wahyd4/kubectl-helm-action@master
+          # env:
+          #   KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
         with:
-          # SA json key used to login to GKE.
-          serviceaccount-key: ${{ secrets.GCP_CREDENTIALS }}
-          # SA name used to login to GKE.
-          #serviceaccount-name: devops
-          # GCP region to use (default: asia-southeast1)
-          gcp-region: us-central1 # default is asia-southeast1
-          # GCP project to use
-          gcp-project: reverse-ip-app-439418
-          # GKE cluster name.
-          gke-cluster-name: reverse
-          # Comma separates list of helm values files.
-          # config-files: # optional
-          # # Kubernetes namespace to use.
-          # namespace: # optional
-          # # Comma separated list of value sets for helms. e.x: key1=value1,key2=value2
-          # values: # optional
-          # # Name of the helm deploy.
-          # name: # optional
-          # # The path of the chart.
-          # chart-path: # optional
-          # # docker image tag for new deployment
-          # image-tag: # optional
-          # # application name for deployment
-          application-name: reserve-ip-app
+          args: |
+            helm repo add bitnami https://charts.bitnami.com/bitnami
+            helm upgrade --install node-app-release ./node-app-chart
+
+  #     - name: Google GKE Helm Deployment
+  # # You may pin to the exact commit or the version.
+  # # uses: dgrezza/action-gcp-helm-deploy@0c3089cd9a2c4a940df8373991bb5024c8c80dc8
+  #       uses: dgrezza/action-gcp-helm-deploy@v1.0.3
+  #       with:
+  #         # SA json key used to login to GKE.
+  #         serviceaccount-key: ${{ secrets.GCP_CREDENTIALS }}
+  #         # SA name used to login to GKE.
+  #         #serviceaccount-name: devops
+  #         # GCP region to use (default: asia-southeast1)
+  #         gcp-region: us-central1 # default is asia-southeast1
+  #         # GCP project to use
+  #         gcp-project: reverse-ip-app-439418
+  #         # GKE cluster name.
+  #         gke-cluster-name: reverse
+  #         # Comma separates list of helm values files.
+  #         # config-files: # optional
+  #         # # Kubernetes namespace to use.
+  #         # namespace: # optional
+  #         # # Comma separated list of value sets for helms. e.x: key1=value1,key2=value2
+  #         # values: # optional
+  #         # # Name of the helm deploy.
+  #         # name: # optional
+  #         # # The path of the chart.
+  #         # chart-path: # optional
+  #         # # docker image tag for new deployment
+  #         # image-tag: # optional
+  #         # # application name for deployment
+  #         application-name: reserve-ip-app
+
           
