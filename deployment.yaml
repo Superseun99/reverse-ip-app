@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reverse
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: reverse
+  template:
+    metadata:
+      labels:
+        app: reverse
+    spec:
+      containers:
+        - name: reverse
+          image: gcr.io/reverse/reverse:latest
+          ports:
+            - containerPort: 3000
+        - name: mysql
+          image: gcr.io/reverse/mysql:5.7
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: rootpassword
+            - name: MYSQL_DATABASE
+              value: reverse_ip_db
+            - name: MYSQL_USER
+              value: root
+            - name: MYSQL_PASSWORD
+              value: password
+          ports:
+            - containerPort: 3306
