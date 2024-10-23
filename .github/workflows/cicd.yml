@@ -58,10 +58,30 @@ jobs:
           credentials_json: ${{ secrets.GCP_CREDENTIALS }}
           project_id: reverse-ip-app-439418
 
-      - name: Deploy to GKE
-        run: |
-          kubectl config set-cluster gke_cluster --server=https://34.56.181.209
-          kubectl config set-credentials gke_user --token=${{ secrets.GCP_CREDENTIALS }}
-          kubectl config set-context gke_context --cluster=gke_cluster --user=gke_user
-          kubectl config use-context gke_context
-          kubectl apply -f deployment.yaml
+      # - name: Deploy to GKE
+      #   run: |
+      #     kubectl config set-cluster gke_cluster --server=https://34.56.181.209
+      #     kubectl config set-credentials gke_user --token=${{ secrets.GCP_CREDENTIALS }}
+      #     kubectl config set-context gke_context --cluster=gke_cluster --user=gke_user
+      #     kubectl config use-context gke_context
+      #     kubectl apply -f deployment.yaml
+      - name: Deploy GKE
+            # You may pin to the exact commit or the version.
+            # uses: google-github-actions/deploy-gke@3a3db4621610b206c2b3c63fa8899bcbd09a65e2
+        uses: google-github-actions/deploy-gke@v0.0.1
+        with:
+          # Image to be deployed
+          image: reverse
+          # Application name of the Kubernetes deployment
+          app_name: reverse
+          # Region/zone of GKE cluster to deploy to.
+          region: us-central1
+          # Name of GKE cluster to deploy to.
+          cluster_name: reverse
+          # Project of GKE cluster to deploy to.
+          project_id: reverse-ip-app-439418
+          # Namespace of GKE cluster to deploy to. If not provided, it will not be passed to the binary. 
+          # namespace: # optional
+          # # The port provided will be used to expose the deployed workload object (i.e., port and targetPort will be set to the value provided in this flag).  If not provided, it will not be passed to the binary.
+          # expose: # optional
+          
