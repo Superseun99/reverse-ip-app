@@ -1,5 +1,5 @@
 #cicd..
-name: ci
+name: reverse-ci
 on:
 - workflow_dispatch
 # on:
@@ -25,7 +25,7 @@ jobs:
           --project=reverse-ip-app \
 
           --region=us-central1 \
-          --images=your-app=gcr.io/reverse-ip-app/reverse:v1 \
+          --images=your-app=gcr.io/reverse/reverse:v1 \
           --description="Automated deployment from GitHub Actions"
   docker:
     runs-on: ubuntu-latest
@@ -47,9 +47,9 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          file: ./section2/Dockerfile # Adjusted path to Dockerfile
+          file: ./docker-compose.yml # Adjusted path to Dockerfile
           push: true
-          tags: gcr.io/reverse-ip-app/reverse:latest
+          tags: gcr.io/reverse/reverse:latest
       - name: Authenticate with Google Cloud
         uses: google-github-actions/auth@v1
         with:
