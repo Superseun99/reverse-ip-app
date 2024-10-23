@@ -20,14 +20,14 @@ jobs:
         with:
           credentials_json: ${{ secrets.GCP_CREDENTIALS }}
 
-      - name: Deploy using Google Cloud Deploy
-        run: |
-          # gcloud deploy releases create release-$(date +%Y%m%d-%H%M%S) \
-          --project=reverse-ip-app \
+      # - name: Deploy using Google Cloud Deploy
+      #   run: |
+      #     # gcloud deploy releases create release-$(date +%Y%m%d-%H%M%S) \
+      #     --project=reverse-ip-app \
 
-          --region=us-central1 \
-          --images=your-app=gcr.io/reverse/reverse:v1 \
-          --description="Automated deployment from GitHub Actions"
+      #     --region=us-central1 \
+      #     --images=your-app=gcr.io/reverse/reverse:v1 \
+      #     --description="Automated deployment from GitHub Actions"
   docker:
     runs-on: ubuntu-latest
     steps:
