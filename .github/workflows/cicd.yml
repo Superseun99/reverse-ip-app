@@ -52,10 +52,10 @@ jobs:
         with:
           version: 'latest'
 
-      - name: Set up GCP credentials
-        uses: google-github-actions/setup-gcloud@v0
+      - name: Authenticate with Google Cloud
+        uses: google-github-actions/auth@v1
         with:
-          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
+          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
           project_id: reverse-ip-app-439418
 
       - name: Deploy to GKE
