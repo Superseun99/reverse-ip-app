@@ -6,6 +6,15 @@ on:
   push:
      branches:
         - master
+env:
+  GKE_PROJECT: reverse-ip-app
+  #GKE_EMAIL: ${{ secrets.GKE_EMAIL }}
+  GITHUB_SHA: ${{ github.sha }}
+  GKE_ZONE: us-east1-b
+  GKE_CLUSTER: reverse
+  IMAGE: reverse
+  REGISTRY_HOSTNAME: us.gcr.io
+  DEPLOYMENT_NAME: reverse
 
 jobs:
   deploy:
@@ -65,14 +74,21 @@ jobs:
         with:
           credentials_json: ${{ secrets.GCP_CREDENTIALS }}
 
-      - name: deploy node to cluster
-        uses: wahyd4/kubectl-helm-action@master
-        env:
-            KUBE_CONFIG_DATA: ${{ secrets.GCP_CREDENTIALS }}
-        with:
-          args: |
-            
-            helm upgrade --install node-app-release ./node-app-chart
+    # Install helm
+      - name: Install Helm
+        run: |
+          curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+      # Deploy the Docker image to the GKE cluster
+      - name: Deploy
+        run: |
+          gcloud container clusters get-credentials $GKE_CLUSTER \
+            --zone $GKE_ZONE \
+            --project $GKE_PROJECT
+          helm upgrade $GKE_PROJECT $GKE_CLUSTER/ \
+            --set reverse.image.tag=$GITHUB_SHA \
+            --wait
+          kubectl rollout status deployment/$DEPLOYMENT_NAME
+          kubectl get services -o wide
 
   #     - name: Google GKE Helm Deployment
   # # You may pin to the exact commit or the version.
