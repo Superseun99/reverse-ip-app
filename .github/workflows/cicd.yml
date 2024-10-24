@@ -13,11 +13,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Google Cloud SDK
-        uses: google-github-actions/setup-gcloud@v1
-        with:
-          project_id: reverse-ip-app-439418
-          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
+      # - name: Set up Google Cloud SDK
+      #   uses: google-github-actions/setup-gcloud@v1
+      #   with:
+      #     project_id: reverse-ip-app-439418
+      #     service_account_key: ${{ secrets.GCP_CREDENTIALS }}
 
       # - name: Authenticate Docker to Artifact Registry
       #   run: |
@@ -28,15 +28,15 @@ jobs:
         with:
           credentials_json: ${{ secrets.GCP_CREDENTIALS }}
 
-      # - name: Set up Docker Buildx.
-      #   uses: docker/setup-buildx-action@v1
+      - name: Set up Docker Buildx.
+        uses: docker/setup-buildx-action@v1
 
-      # - name: Log in to Google Container Registry
-      #   uses: docker/login-action@v2
-      #   with:
-      #     registry: gcr.io
-      #     username: _json_key
-      #     password: ${{ secrets.GCP_CREDENTIALS }}      
+      - name: Log in to Google Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: gcr.io
+          username: _json_key
+          password: ${{ secrets.GCP_CREDENTIALS }}      
       
       - name: Docker Compose Command
         uses: blag/action-docker-compose@v0.0.1
