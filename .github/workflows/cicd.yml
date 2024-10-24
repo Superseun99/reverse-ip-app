@@ -54,7 +54,7 @@ jobs:
           # The JSON contents of the Google Cloud Service Account key file
           credentials_json: ${{ secrets.GCP_CREDENTIALS }}   
           # The name of the Google Cloud project
-          gcp_project: reverse-ip-app
+          gcp_project: reverse-ip-app-439418
           # The URL of the Google Container Registry
           gcp_registry: us-central1-docker.pkg.dev
           # The name of the Google Container Registry repository
