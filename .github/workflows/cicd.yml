@@ -71,7 +71,7 @@ jobs:
         uses: google-github-actions/deploy-gke@v0.0.1
         with:
           # Image to be deployed
-          image: reverse
+          image: us-central1-docker.pkg.dev/reverse-ip-app-439418/reverse
           # Application name of the Kubernetes deployment
           app_name: reverse
           # Region/zone of GKE cluster to deploy to.
