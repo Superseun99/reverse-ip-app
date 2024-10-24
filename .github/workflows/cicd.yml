@@ -43,7 +43,7 @@ jobs:
         with:
     # Command line arguments for docker-compose
           cli-args: up -d
-          push: true
+          #push: true
           #tags: gcr.io/reverse/reverse:latest
 
       - name: Deploy to Google Container Registry
