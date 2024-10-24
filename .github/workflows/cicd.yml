@@ -47,7 +47,7 @@ jobs:
           # The name of the Docker image
           image_name: reverse
           # The tag of the Docker image
-          image_tag: 
+          image_tag: latest
           
       
       # - name: Build and push Docker images
