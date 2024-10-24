@@ -19,9 +19,9 @@ jobs:
           project_id: reverse-ip-app-439418
           service_account_key: ${{ secrets.GCP_CREDENTIALS }}
 
-      - name: Authenticate Docker to Artifact Registry
-        run: |
-          echo ${{ secrets.GCP_CREDENTIALS }} | docker login -u _json_key --password-stdin https://us-central1-docker.pkg.dev
+      # - name: Authenticate Docker to Artifact Registry
+      #   run: |
+      #     echo ${{ secrets.GCP_CREDENTIALS }} | docker login -u _json_key --password-stdin https://us-central1-docker.pkg.dev
 
       - name: Authenticate with Google Cloud
         uses: google-github-actions/auth@v1
