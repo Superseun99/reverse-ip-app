@@ -29,8 +29,27 @@ jobs:
     # Command line arguments for docker-compose
           cli-args: up -d
           push: true
-          tags: gcr.io/reverse/reverse:latest
+          #tags: gcr.io/reverse/reverse:latest
 
+      - name: Deploy to Google Container Registry
+  # You may pin to the exact commit or the version.
+  # uses: castroneto/deploy-to-google-artifactory@97a97b97054b550c27a2872aa11ccb4a19fdea45
+        uses: castroneto/deploy-to-google-artifactory@latest
+        with:
+          # The JSON contents of the Google Cloud Service Account key file
+          credentials_json: ${{ secrets.GCP_CREDENTIALS }}   
+          # The name of the Google Cloud project
+          gcp_project: reverse-ip-app
+          # The URL of the Google Container Registry
+          gcp_registry: us-central1-docker.pkg.dev
+          # The name of the Google Container Registry repository
+          gcp_repository: reverse
+          # The name of the Docker image
+          image_name: reverse
+          # The tag of the Docker image
+          image_tag: 
+          
+      
       # - name: Build and push Docker images
       #   run: |
       #     docker-compose up -d
